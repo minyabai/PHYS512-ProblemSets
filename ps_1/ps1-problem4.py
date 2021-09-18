@@ -23,6 +23,8 @@ def poly(func,x):
     c = Xinv@y
     y_pred=X@c
 
+    print('Error for polynomial: ',y-y_pred)
+    
     return y_pred
 
 ## Cubic Spline Interpolation
@@ -33,6 +35,8 @@ def cubic_spline(func,x):
     spln = interpolate.splrep(x,y)
     yy = interpolate.splev(xx,spln)
 
+    print('Error for cubic spline: ',y-yy)
+    
     return yy
 
 ## Rational Function Interpolation
@@ -58,7 +62,7 @@ def rat_fit(x,y,n,m):
     for i in range(1,m):
         mat[:,i-1+n] = -y*x**i
 
-    pars = np.dot(np.linalg.pinv(mat),y)
+    pars = np.dot(np.linalg.inv(mat),y)
     p = pars[:n]
     q = pars[n:]
 
@@ -69,7 +73,7 @@ def rat_inter(func,x,n,m):
     p,q = rat_fit(x,y,n,m)
     y_pred = rat_eval(p,q,x)
 
-    print(p,q)
+    print('Error for rational functions: ',y-y_pred)
     
     return y_pred
 
@@ -93,16 +97,16 @@ x1 = np.linspace(-np.pi/2,np.pi/2,npt)
 x2 = np.linspace(-1,1,npt)
 
 ## Function 1 - f(x) = cos(x)
-plt.plot(x1,func1(x1),label='actual function')
-plt.plot(x1,poly(func1,x1),label='polynomial interpolation')
-plt.plot(x1,cubic_spline(func1,x1),label='cubic spline interpolation')
-plt.plot(x1,rat_inter(func1,x1,n,m),label='rational function interpolation')
+# plt.plot(x1,func1(x1),label='actual function')
+# plt.plot(x1,poly(func1,x1),label='polynomial interpolation')
+# plt.plot(x1,cubic_spline(func1,x1),label='cubic spline interpolation')
+# plt.plot(x1,rat_inter(func1,x1,n,m),label='rational function interpolation')
 
 ## Function 2 - f(x) = 1/(1+x**2)
-# plt.plot(x2,func2(x2),label='actual function')
-# plt.plot(x2,poly(func2,x2),label='polynomial interpolation')
-# plt.plot(x2,cubic_spline(func2,x2),label='cubic spline interpolation')
-# plt.plot(x2,rat_inter(func2,x2,n,m),label='rational function interpolation')
+plt.plot(x2,func2(x2),label='actual function')
+plt.plot(x2,poly(func2,x2),label='polynomial interpolation')
+plt.plot(x2,cubic_spline(func2,x2),label='cubic spline interpolation')
+plt.plot(x2,rat_inter(func2,x2,n,m),label='rational function interpolation')
 
 plt.legend()
 plt.show()
