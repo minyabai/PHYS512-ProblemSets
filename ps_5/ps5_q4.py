@@ -8,7 +8,7 @@ from matplotlib import pyplot as plt
 
 def conv_safe(f,g):
     d = np.abs(len(f)-len(g))
-    n = min(len(f),len(g))//2
+    n = max(len(f),len(g))
     
     if len(f) > len(g):
         g = np.concatenate((g,np.zeros(d)))
@@ -23,9 +23,12 @@ def conv_safe(f,g):
 
 x = np.linspace(-5,5,2001)
 f = np.exp(-x**2)
-g = np.exp(-(x+2)**2)
+g = np.exp(-(x-2)**2)
 
 h = conv_safe(f,g)
-plt.plot(h)
+plt.plot(f, label='gaussian 1')
+plt.plot(g, label='gaussian 2')
+plt.plot(h/max(h), label='scaled convolution')
+plt.legend()
 plt.show()
 
