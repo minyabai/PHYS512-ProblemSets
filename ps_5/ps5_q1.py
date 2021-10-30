@@ -11,7 +11,7 @@ a = 1000 ## shift value
 x = np.linspace(-5,5,a*2+1)
 f = np.sin(x) # np.exp(-x**2)
 
-h = shift_conv(f,a)
+h = shift_conv(f,a) # use function
 
 plt.plot(f)
 plt.plot(h)

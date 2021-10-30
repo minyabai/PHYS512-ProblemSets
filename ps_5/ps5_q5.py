@@ -31,7 +31,7 @@ fft = np.abs(np.fft.fft(np.sin(2*np.pi*k*x/N)))
 ## Part d
 ## ====================
 window = 0.5 - 0.5 * np.cos(2*np.pi*x/N)
-fft = np.abs(np.fft.fft(np.sin(2*np.pi*k*x/N)*window))
+fft = np.abs(np.fft.fft(np.sin(2*np.pi*k*x/N)*window)) # ft with window function
 
 plt.plot(x,fft,label='window 1')
 # plt.legend()
@@ -39,13 +39,13 @@ plt.plot(x,fft,label='window 1')
 
 ## Part e
 ## ====================
-fft_window = np.real(np.fft.fft(window))
+fft_window = np.real(np.fft.fft(window)) # fft of window function
 
 # plt.plot(x,fft_window)
 # plt.show()
 
-func = np.fft.fft(np.sin(2*np.pi*k*x/N))
-fft_w = -np.roll(func,1)/4 + func/2 - np.roll(func,-1)/4
+func = np.fft.fft(np.sin(2*np.pi*k*x/N)) # ft of the initial function
+fft_w = -np.roll(func,1)/4 + func/2 - np.roll(func,-1)/4 # lin comb with neighbour terms
 
 plt.plot(x,np.abs(fft_w),label='window 2')
 plt.legend()
