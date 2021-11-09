@@ -95,7 +95,7 @@ file.close()
 
 ## Initialize Arrays
 
-plot = False 
+plot = True 
 
 noise_H = [] # noise model for Hanford
 noise_L = [] # noise model for Livingston
@@ -115,8 +115,9 @@ for i in range(len(H1)):
     freq_L.append(freqs_L1)
 
     if plot:
-        plt.loglog(noise_H[i])
-        plt.loglog(noise_L[i])
+        plt.loglog(noise_H[i],'red',label='Hanford')
+        plt.loglog(noise_L[i],'blue',label='Livingston')
+        plt.legend()
         plt.show()
 
 ## Part b)
@@ -129,7 +130,12 @@ mfL = [] # for Livingston
 Htshift = []
 Ltshift = []
 
-# whiten_data = whiten(H1[0][0],noise_H[0])
+fig_b, ax_b = plt.subplots(4,2)
+fig_b.figsize = (120,80)
+
+ax_b[0,0].set_title("Hanford")
+ax_b[0,1].set_title("Livingston")
+
 for i in range(4):
     # whiten the data
     w_H,f_H = whiten(H1[i][0],noise_H[i],freq_H[i],H1[i][1])
@@ -152,10 +158,14 @@ for i in range(4):
     Ltshift.append(Lt_shift)
     
     if plot:
-        plt.plot(Ht_shift,mf_H,'red',alpha=0.4)
-        plt.plot(Lt_shift,mf_L,'blue',alpha=0.6)
-        plt.show()
+        ax_b[i,0].plot(Ht_shift,mf_H,'red',label='Hanford')
+        ax_b[i,1].plot(Lt_shift,mf_L,'blue',label='Livingston')
+        # plt.legend()
+        # plt.show()
 
+# plt.legend()
+plt.show()
+        
 ## Part c)
 for i in range(4):
     H_noise = np.std(mfH[i][10000:40000]) # cal std in region of noise
@@ -166,6 +176,12 @@ for i in range(4):
     print("Hanford: {}, Livingston: {}, Combined: {}".format(H_snr,L_snr,HL_snr))
     
 ## Part d)
+fig_d, ax_d = plt.subplots(4,2)
+fig_d.figsize = (120,80)
+
+ax_d[0,0].set_title("Hanford")
+ax_d[0,1].set_title("Livingston")
+
 for i in range(4):
     w_H,f_H,w_Ht,f_Ht = wH[i] # whiten data
     w_L,f_L,w_Lt,f_Lt = wL[i]
@@ -181,9 +197,11 @@ for i in range(4):
     print("Hanford: {}, Livingston: {}, Combined: {}".format(maxH_SNR,maxL_SNR,HL_SNR))
 
     if plot:
-        plt.plot(H_SNR)
-        plt.plot(L_SNR)
-        plt.show()
+        ax_d[i,0].plot(H_SNR,'red',label='Hanford')
+        ax_d[i,1].plot(L_SNR,'blue',label='Livingston')
+
+# plt.legend()
+plt.show()
 
 ## Part e)
 # freqs = []
