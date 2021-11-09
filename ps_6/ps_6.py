@@ -167,6 +167,8 @@ for i in range(4):
 plt.show()
         
 ## Part c)
+print("Match Filters")
+print("=====================================")
 for i in range(4):
     H_noise = np.std(mfH[i][10000:40000]) # cal std in region of noise
     H_snr = np.max(np.abs(mfH[i])/H_noise) # find max (signal) and divide noise to get snr
@@ -181,6 +183,9 @@ fig_d.figsize = (120,80)
 
 ax_d[0,0].set_title("Hanford")
 ax_d[0,1].set_title("Livingston")
+
+print("Analytic")
+print("====================================")
 
 for i in range(4):
     w_H,f_H,w_Ht,f_Ht = wH[i] # whiten data
