@@ -36,7 +36,7 @@ def match_filter(w_data, noise, freq, template, dt):
     MF = fft_dat * fft_template.conjugate()
     MF = np.fft.irfft(MF,len(w_data))
 
-    t = 2 * np.arange(len(w_data) * dt, step=dt) / dt
+    t = np.arange(len(w_data) * dt, step=dt)
 
     return MF, t
 
@@ -205,6 +205,6 @@ del_t = np.mean(dt)
 del_p = del_t * (3*10**8)
 
 print("Uncertainty in time: {}s".format(del_t))
-print("Uncertainty in position: {}s".format(del_p))
+print("Uncertainty in position: {}m".format(del_p))
     
     
