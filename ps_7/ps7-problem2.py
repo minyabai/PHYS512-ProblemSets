@@ -49,27 +49,21 @@ a = a/a.sum()
 # plt.legend()
 # plt.show()
 
-# we only want non-negative exp dev
-dev_cut = dev[dev > 0]
-p = 1.0
-acc_prob = p * np.exp(-dev_cut)/lorentz(dev_cut)
-acc = np.random.rand(len(acc_prob)) < acc_prob
-CDF = dev_cut[acc]
+dev_cut = dev[dev > 0] # we only want non-negative exp dev
+p = 1.0 # scaling
+cut_prob = p * np.exp(-dev_cut)/lorentz(dev_cut)
+cut = np.random.rand(len(cut_prob)) < cut_prob
+deviates = dev_cut[cut]
 
-print("Max Accepted fraction: ", np.max(acc_prob))
-print("Accepted fraction: ", len(CDF)/len(dev_cut))
+print("Max Accepted fraction: ", np.max(cut_prob))
+print("Accepted fraction: ", len(deviates)/len(dev_cut))
 
-CDF_np = np.random.exponential(1,len(CDF))
+expdev = np.random.exponential(p,len(deviates))
 
-CDF.sort()
-CDF_np.sort()
-
-## Plotting CDF
-# plt.plot(CDF)
-# plt.plot(CDF_np,'--')
-# plt.show()
+deviates.sort()
+expdev.sort()
 
 ## Plotting Histogram
-# plt.hist(CDF, bins=200, density=True)
-# plt.hist(CDF_np, bins=200, density=True)
-# plt.show()
+plt.hist(deviates, bins=200, density=True)
+plt.hist(expdev, bins=200, density=True)
+plt.show()
