@@ -64,6 +64,7 @@ deviates.sort()
 expdev.sort()
 
 ## Plotting Histogram
-plt.hist(deviates, bins=200, density=True)
-plt.hist(expdev, bins=200, density=True)
+plt.hist(deviates, bins=200, density=True, color='red', alpha=0.7, label='expected')
+plt.hist(expdev, bins=200, density=True, color='blue', alpha=0.7, label='deviates')
+plt.legend()
 plt.show()
